@@ -3,19 +3,19 @@
  * @param       {Integer} n [description]
  * @constructor
  */
-function DisjoinSet(n) {
+function DisjointSet(n) {
   this.parent = new Array(n);
   this.size = new Array(n);
   this.count = n;
 
   // Initialization
   for (let i = 0; i < n; i++) {
-    set[i] = i;
-    set[i] = 1;
+    this.parent[i] = i;
+    this.parent[i] = 1;
   }
 }
 
-const D = DisjoinSet.prototype;
+const D = DisjointSet.prototype;
 
 /**
  * [union description]
@@ -27,10 +27,10 @@ D.union = function union(a, b) {
   const rootB = this.find(b);
   if (rootA === rootB) return;
   if (this.size[rootA] > this.size[rootB]) {
-    this.set[rootB] = rootA;
+    this.parent[rootB] = rootA;
     this.size[rootB] += this.size[rootA];
   } else {
-    this.set[rootA] = rootB;
+    this.parent[rootA] = rootB;
     this.size[rootA] += this.size[rootB];
   }
   this.count--;
@@ -42,9 +42,9 @@ D.union = function union(a, b) {
  * @return {Integer}   [description]
  */
 D.find = function find(i) {
-  while (this.set[i] !== i) {
-    this.set[i] = this.set[this.set[i]]
-    i = this.set[i];
+  while (this.parent[i] !== i) {
+    this.parent[i] = this.parent[this.parent[i]]
+    i = this.parent[i];
   }
   return i;
 }
@@ -59,4 +59,4 @@ D.connected = function connected(a, b) {
   return this.find(a) === this.find(b);
 }
 
-module.exports = DisjoinSet
+module.exports = DisjointSet;
