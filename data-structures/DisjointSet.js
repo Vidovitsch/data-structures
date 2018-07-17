@@ -2,7 +2,6 @@
  * This disjoint set implementation uses weighted quick union
  * and path compression.
  *
- *
  * @param       {Integer} n [description]
  * @constructor
  */
