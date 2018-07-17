@@ -1,0 +1,19 @@
+{
+  "name": "data-structures",
+  "version": "1.0.0",
+  "description": "A collection of common data structures",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vidovitsch/data-structures-js.git"
+  },
+  "author": "Vidovitsch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vidovitsch/data-structures-js/issues"
+  },
+  "homepage": "https://github.com/Vidovitsch/data-structures-js#readme"
+}
