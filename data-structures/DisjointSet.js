@@ -6,6 +6,9 @@
  * @constructor
  */
 function DisjointSet(n) {
+  if (n < 0) {
+    throw new Error('Illegal Argument (n < 0)');
+  }
   this.parent = new Array(n);
   this.size = new Array(n);
   this.count = n;
@@ -13,7 +16,7 @@ function DisjointSet(n) {
   // Initialization
   for (let i = 0; i < n; i++) {
     this.parent[i] = i;
-    this.parent[i] = 1;
+    this.size[i] = 1;
   }
 }
 
