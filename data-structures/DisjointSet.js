@@ -14,7 +14,7 @@ function DisjointSet(n) {
   this.count = n;
 
   // Initialization
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < n; i += 1) {
     this.parent[i] = i;
     this.size[i] = 1;
   }
@@ -38,8 +38,8 @@ D.union = function union(a, b) {
     this.parent[rootA] = rootB;
     this.size[rootA] += this.size[rootB];
   }
-  this.count--;
-}
+  this.count -= 1;
+};
 
 /**
  * [find description]
@@ -47,12 +47,14 @@ D.union = function union(a, b) {
  * @return {Integer}   [description]
  */
 D.find = function find(i) {
-  while (this.parent[i] !== i) {
-    this.parent[i] = this.parent[this.parent[i]]
-    i = this.parent[i];
+  this.validate(i);
+  let index = i;
+  while (this.parent[index] !== index) {
+    this.parent[index] = this.parent[this.parent[index]];
+    index = this.parent[index];
   }
-  return i;
-}
+  return index;
+};
 
 /**
  * [connected description]
@@ -62,6 +64,19 @@ D.find = function find(i) {
  */
 D.connected = function connected(a, b) {
   return this.find(a) === this.find(b);
-}
+};
+
+/**
+ *
+ * @param  {Integer} i [description]
+ */
+D.validate = function validate(i) {
+  const n = this.parent.length;
+  if (i < 0) {
+    throw Error(`Illegal Argument: ${i} is smaller than 0 (i < 0)`);
+  } else if (i >= n) {
+    throw Error(`Illegal Argument: ${i} is bigger than or equal to ${n} (i >= n)`);
+  }
+};
 
 module.exports = DisjointSet;
