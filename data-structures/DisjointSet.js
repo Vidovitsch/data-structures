@@ -2,8 +2,19 @@
  * This disjoint set implementation uses weighted quick union
  * and path compression.
  *
- * @param       {Integer} n [description]
+ * Worst-case time complexity: N + M * lg(N)
+ * Where:
+ * M = union-find operations
+ * N = number of indeces in disjoint set
+ *
+ * The constructor initializes an empty disjoint set data
+ * structure with length 'n' ('0' through 'n-1').
+ * Each index is in its own component.
+ * Initial compnent sizes are therefore of size 1.
+ *
+ * @param       {Integer} n number of indeces of the disjoint set ('0' through 'n-1')
  * @constructor
+ * @throws Illegal Argument Error unless 'n >= 0'
  */
 function DisjointSet(n) {
   if (n < 0) {
@@ -11,6 +22,8 @@ function DisjointSet(n) {
   }
   this.parent = new Array(n);
   this.size = new Array(n);
+
+  // Number of different components
   this.count = n;
 
   // Initialization
@@ -23,9 +36,12 @@ function DisjointSet(n) {
 const D = DisjointSet.prototype;
 
 /**
- * [union description]
- * @param  {Integer} a [description]
- * @param  {Integer} b [description]
+ * Connects the component containing index 'a' with the
+ * component containing index 'b'.
+ *
+ * @param  {Integer} a first index of the disjoint set
+ * @param  {Integer} b second index of the disjoint set
+ * @throws Illegal Argument Error unless '0 >= a < n' and '0 >= b < n'
  */
 D.union = function union(a, b) {
   const rootA = this.find(a);
@@ -42,9 +58,11 @@ D.union = function union(a, b) {
 };
 
 /**
- * [find description]
- * @param  {Integer} i [description]
- * @return {Integer}   [description]
+ * Returns the root of the component for the component containing index 'i'.
+ *
+ * @param  {Integer} i index of the disjoint set
+ * @return {Integer}   root of component containing index 'i'
+ * @throws Illegal Argument Error unless '0 >= i < n'
  */
 D.find = function find(i) {
   this.validate(i);
@@ -57,18 +75,22 @@ D.find = function find(i) {
 };
 
 /**
- * [connected description]
- * @param  {Integer} a [description]
- * @param  {Integer} b [description]
- * @return {Boolean}   [description]
+ * Returns true if the two indeces are in the same component.
+ *
+ * @param  {Integer} a first index of the disjoint set
+ * @param  {Integer} b second index of the disjoint set
+ * @return {Boolean}   'true' if the two given indeces ('a' and 'b') are within the same component, otherwise 'false'
+ * @throws Illegal Argument Error unless '0 >= a < n' and '0 >= b < n'
  */
 D.connected = function connected(a, b) {
   return this.find(a) === this.find(b);
 };
 
 /**
+ * Validates if 'i' is a valid index within this disjoint set.
  *
- * @param  {Integer} i [description]
+ * @param  {Integer} i index of the disjoint set
+ * @throws Illegal Argument Error unless '0 >= i < n'
  */
 D.validate = function validate(i) {
   const n = this.parent.length;
