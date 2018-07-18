@@ -33,10 +33,10 @@ D.union = function union(a, b) {
   if (rootA === rootB) return;
   if (this.size[rootA] > this.size[rootB]) {
     this.parent[rootB] = rootA;
-    this.size[rootB] += this.size[rootA];
+    this.size[rootA] += this.size[rootB];
   } else {
     this.parent[rootA] = rootB;
-    this.size[rootA] += this.size[rootB];
+    this.size[rootB] += this.size[rootA];
   }
   this.count -= 1;
 };
