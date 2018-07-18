@@ -1,0 +1,27 @@
+{
+  "name": "data-structures",
+  "version": "1.0.0",
+  "description": "A collection of common data structures",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vidovitsch/data-structures-js.git"
+  },
+  "author": "Vidovitsch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vidovitsch/data-structures-js/issues"
+  },
+  "homepage": "https://github.com/Vidovitsch/data-structures-js#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^5.1.0",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2"
+  }
+}
