@@ -42,8 +42,12 @@ S.push = function push(value) {
  * Time complexity (worst): O(1)
  *
  * @return {Any} the value (item) of the node that has been removed from this stack
+ * @throws No Such Element error unless 'length > 0'
  */
 S.pop = function pop() {
+  if (this.length === 0) {
+    throw new Error('No Such Element: queue is empty');
+  }
   const { value } = head;
   head = head.next;
   this.length -= 1;
@@ -56,8 +60,12 @@ S.pop = function pop() {
  * Time complexity (worst): O(1)
  *
  * @return {Any} the value (item) of the node most recenly added to this stack
+ * @throws No Such Element error unless 'length > 0'
  */
 S.peek = function peek() {
+  if (this.length === 0) {
+    throw new Error('No Such Element: queue is empty');
+  }
   return head.value;
 };
 

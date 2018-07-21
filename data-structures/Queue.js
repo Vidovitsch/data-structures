@@ -42,8 +42,12 @@ Q.enqueue = function enqueue(value) {
  * Time complexity (worst): O(1)
  *
  * @return {[type]} [description]
+ * @throws No Such Element error unless 'length > 0'
  */
 Q.dequeue = function dequeue() {
+  if (this.length === 0) {
+    throw new Error('No Such Element: queue is empty');
+  }
   const oldHead = head;
   head = oldHead.next;
   this.length -= 1;
@@ -56,8 +60,12 @@ Q.dequeue = function dequeue() {
  * Time complexity (worst): O(1)
  *
  * @return {Any} the value (item) of the node most recenly added to this stack
+ * @throws No Such Element error unless 'length > 0'
  */
 Q.peek = function peek() {
+  if (this.length === 0) {
+    throw new Error('No Such Element: queue is empty');
+  }
   return head.value;
 };
 
