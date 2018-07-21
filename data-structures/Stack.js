@@ -10,7 +10,7 @@ function Stack() {
 }
 
 /**
- * Node that fills an index in the Stack.
+ * Node that fills an index in the stack.
  *
  * @param       {Any} value the value (item) to be added to this stack
  * @constructor
