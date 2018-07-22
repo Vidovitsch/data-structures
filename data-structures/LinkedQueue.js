@@ -5,7 +5,7 @@ let tail = null;
  * A queue implementation backed by a LinkedList.
  * @constructor
  */
-function Queue() {
+function LinkedQueue() {
   this.length = 0;
 }
 
@@ -20,7 +20,7 @@ function Node(value) {
   this.next = null;
 }
 
-const Q = Queue.prototype;
+const L = LinkedQueue.prototype;
 
 /**
  * Enqueues a new node in this queue.
@@ -29,7 +29,7 @@ const Q = Queue.prototype;
  *
  * @param  {Any} value the value (item) to be added to this queue
  */
-Q.enqueue = function enqueue(value) {
+L.enqueue = function enqueue(value) {
   const oldTail = tail;
   tail = new Node(value);
   oldTail.next = tail;
@@ -44,7 +44,7 @@ Q.enqueue = function enqueue(value) {
  * @return {[type]} [description]
  * @throws No Such Element error unless 'length > 0'
  */
-Q.dequeue = function dequeue() {
+L.dequeue = function dequeue() {
   if (this.length === 0) {
     throw new Error('No Such Element: queue is empty');
   }
@@ -62,7 +62,7 @@ Q.dequeue = function dequeue() {
  * @return {Any} the value (item) of the node most recenly added to this stack
  * @throws No Such Element error unless 'length > 0'
  */
-Q.peek = function peek() {
+L.peek = function peek() {
   if (this.length === 0) {
     throw new Error('No Such Element: queue is empty');
   }
@@ -76,7 +76,7 @@ Q.peek = function peek() {
  *
  * @return {Any[]} Array of items in this stack
  */
-Q.asArray = function asArray() {
+L.asArray = function asArray() {
   const arr = new Array(this.length);
   let node = head;
   while (node.next) {
@@ -86,4 +86,4 @@ Q.asArray = function asArray() {
   return arr;
 };
 
-module.exports = Queue;
+module.exports = LinkedQueue;
