@@ -16,6 +16,16 @@ function Node(value) {
   this.next = null;
 }
 
+function findNode(index) {
+  let i = 0;
+  let node = head;
+  while (index > i) {
+    node = node.next;
+    i += 1;
+  }
+  return node;
+}
+
 const S = SinglyLinkedList.prototype;
 
 S.add = function add(value) {
@@ -24,11 +34,9 @@ S.add = function add(value) {
     head = newNode;
     tail = newNode;
   } else {
-    let node = head;
-    while (node.next) {
-      node = node.next;
-    }
-    node.next = newNode;
+    const oldTail = tail;
+    tail = newNode;
+    oldTail.next = tail;
   }
   this.length += 1;
 };
@@ -42,13 +50,8 @@ S.removeAt = function removeAt(index) {
   } else if (index === this.length - 1) {
     this.removeTail();
   } else {
-    let i = 0;
-    let node = head;
-    while (index > i + 1) {
-      node = node.next;
-      i += 1;
-    }
-    node.next = node.next.next;
+    const nodeBefore = findNode(index - 1);
+    nodeBefore.next = nodeBefore.next.next;
     this.length -= 1;
   }
 };
@@ -63,14 +66,9 @@ S.insertAt = function insertAt(value, index) {
     this.add(value);
   } else {
     const newNode = new Node(value);
-    let i = 0;
-    let node = head;
-    while (index > i + 1) {
-      node = node.next;
-      i += 1;
-    }
-    const oldNext = node.next;
-    node.next = newNode;
+    const nodeBefore = findNode(index - 1);
+    const oldNext = nodeBefore.next;
+    nodeBefore.next = new Node(value);
     newNode.next = oldNext;
     this.length += 1;
   }
@@ -86,13 +84,7 @@ S.searchAt = function searchAt(index) {
   if (index === this.length - 1) {
     return this.searchTail();
   }
-  let i = 0;
-  let node = head;
-  while (index > i) {
-    node = node.next;
-    i += 1;
-  }
-  return node.value;
+  return findNode(index).value;
 };
 
 S.removeHead = function removeTail() {
@@ -116,11 +108,7 @@ S.removeTail = function removeTail() {
     head = null;
     tail = null;
   } else {
-    let node = head;
-    while (node.next.next) {
-      node = node.next;
-    }
-    node.next = null;
+    findNode(this.length - 2).next = null;
   }
   this.length -= 1;
 };

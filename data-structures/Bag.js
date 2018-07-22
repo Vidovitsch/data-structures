@@ -1,6 +1,6 @@
 let head = null;
 
-function LinkedBag() {
+function Bag() {
   this.length = 0;
 }
 
@@ -15,7 +15,7 @@ function Node(value) {
   this.next = null;
 }
 
-const L = LinkedBag.prototype;
+const B = Bag.prototype;
 
 /**
  * Adds a value to this bag.
@@ -24,7 +24,7 @@ const L = LinkedBag.prototype;
  *
  * @param {Any} value the value to be added to this bag
  */
-L.add = function add(value) {
+B.add = function add(value) {
   const oldHead = head;
   head = new Node(value);
   head.next = oldHead;
@@ -38,7 +38,7 @@ L.add = function add(value) {
  *
  * @return {Any[]} Array of items in this bag
  */
-L.asArray = function asArray() {
+B.asArray = function asArray() {
   const arr = new Array(this.length);
   let node = head;
   while (node.next) {
@@ -48,4 +48,4 @@ L.asArray = function asArray() {
   return arr;
 };
 
-module.exports = LinkedBag;
+module.exports = Bag;
