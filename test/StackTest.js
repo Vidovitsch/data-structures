@@ -87,12 +87,18 @@ describe('Stack', () => {
 
   it('asArray() should return an array corresponding with the items in the stack', () => {
     const stack = new Stack();
+
+    let stackArr = stack.asArray();
+
+    // Assert #1
+    assert.equal(stackArr.length, 0);
+
     stack.push(10);
     stack.push(8);
     stack.push(12);
+    stackArr = stack.asArray();
 
-    const stackArr = stack.asArray();
-    // Assert #1
+    // Assert #2
     assert.equal(stackArr[0], 12);
     assert.equal(stackArr[1], 8);
     assert.equal(stackArr[2], 10);

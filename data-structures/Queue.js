@@ -30,9 +30,15 @@ const Q = Queue.prototype;
  * @param  {Any} value the value (item) to be added to this queue
  */
 Q.enqueue = function enqueue(value) {
-  const oldTail = tail;
-  tail = new Node(value);
-  oldTail.next = tail;
+  const newNode = new Node(value);
+  if (this.length === 0) {
+    head = newNode;
+    tail = newNode;
+  } else {
+    const oldTail = tail;
+    tail = newNode;
+    oldTail.next = tail;
+  }
   this.length += 1;
 };
 
@@ -79,8 +85,8 @@ Q.peek = function peek() {
 Q.asArray = function asArray() {
   const arr = new Array(this.length);
   let node = head;
-  while (node.next) {
-    arr.push(node.value);
+  for (let i = 0; i < this.length; i += 1) {
+    arr[i] = (node.value);
     node = node.next;
   }
   return arr;
