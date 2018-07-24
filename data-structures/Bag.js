@@ -41,8 +41,8 @@ B.add = function add(value) {
 B.asArray = function asArray() {
   const arr = new Array(this.length);
   let node = head;
-  while (node.next) {
-    arr.push(node.value);
+  for (let i = 0; i < this.length; i += 1) {
+    arr[i] = (node.value);
     node = node.next;
   }
   return arr;
