@@ -1,5 +1,10 @@
 let head = null;
 
+/**
+ * A bag implementation backed by a LinkedList.
+ *
+ * @constructor
+ */
 function Bag() {
   this.length = 0;
 }

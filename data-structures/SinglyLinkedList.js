@@ -1,6 +1,11 @@
 let head = null;
 let tail = null;
 
+/**
+ * A unidirectional implementation of a linked list.
+ *
+ * @constructor
+ */
 function SinglyLinkedList() {
   this.length = 0;
 }
@@ -16,6 +21,14 @@ function Node(value) {
   this.next = null;
 }
 
+/**
+ * Helper method.
+ *
+ * Finds a node on a specific index within the linked list.
+ *
+ * @param  {Integer} index [description]
+ * @return {Node}       [description]
+ */
 function findNode(index) {
   let i = 0;
   let node = head;
@@ -28,32 +41,24 @@ function findNode(index) {
 
 const S = SinglyLinkedList.prototype;
 
+/**
+ * Adds a new item at the end (tail) of the linked list.
+ *
+ * Time complexity: O(1)
+ *
+ * @param {Any} value Item to be added
+ */
 S.add = function add(value) {
-  const newNode = new Node(value);
+  const node = new Node(value);
   if (this.length === 0) {
-    head = newNode;
-    tail = newNode;
+    head = node;
+    tail = node;
   } else {
-    const oldTail = tail;
-    tail = newNode;
-    oldTail.next = tail;
+    const t = tail;
+    tail = node;
+    t.next = tail;
   }
   this.length += 1;
-};
-
-S.removeAt = function removeAt(index) {
-  if (index < 0 || index > this.length - 1) {
-    throw Error(`Illegal Argument: index=${index} is smaller than 0 or bigger than 'length - 1'`);
-  }
-  if (index === 0) {
-    this.removeHead();
-  } else if (index === this.length - 1) {
-    this.removeTail();
-  } else {
-    const nodeBefore = findNode(index - 1);
-    nodeBefore.next = nodeBefore.next.next;
-    this.length -= 1;
-  }
 };
 
 S.insertAt = function insertAt(value, index) {
@@ -74,7 +79,27 @@ S.insertAt = function insertAt(value, index) {
   }
 };
 
-S.searchAt = function searchAt(index) {
+/**
+ * [removeAt description]
+ * @param  {[type]} index [description]
+ * @return {[type]}       [description]
+ */
+S.removeAt = function removeAt(index) {
+  if (index < 0 || index > this.length - 1) {
+    throw Error(`Illegal Argument: index=${index} is smaller than 0 or bigger than 'length - 1'`);
+  }
+  if (index === 0) {
+    this.removeHead();
+  } else if (index === this.length - 1) {
+    this.removeTail();
+  } else {
+    const nodeBefore = findNode(index - 1);
+    nodeBefore.next = nodeBefore.next.next;
+    this.length -= 1;
+  }
+};
+
+S.search = function search(index) {
   if (index < 0 || index > this.length - 1) {
     throw Error(`Illegal Argument: index=${index} is smaller than 0 or bigger than 'length - 1'`);
   }
@@ -126,14 +151,14 @@ S.insertHead = function insertHead(value) {
   this.length += 1;
 };
 
-S.searchHead = function searchHead() {
+S.peekStart = function peekStart() {
   if (this.length === 0) {
     throw new Error('No Such Element: linked list is empty');
   }
   return head.value;
 };
 
-S.searchTail = function searchTail() {
+S.peekEnd = function peekEnd() {
   if (this.length === 0) {
     throw new Error('No Such Element: linked list is empty');
   }

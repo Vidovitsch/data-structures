@@ -3,6 +3,7 @@ let tail = null;
 
 /**
  * A queue implementation backed by a LinkedList.
+ *
  * @constructor
  */
 function Queue() {
