@@ -1,6 +1,6 @@
 /**
  * This disjoint set implementation uses weighted quick union
- * and path compression.
+ * with path compression.
  *
  * Worst-case time complexity: N + M * lg(N)
  * Where:
@@ -68,7 +68,7 @@ D.find = function find(i) {
   this.validate(i);
   let index = i;
   while (this.parent[index] !== index) {
-    this.parent[index] = this.parent[this.parent[index]];
+    this.parent[index] = this.parent[this.parent[index]]; // Adds path compression
     index = this.parent[index];
   }
   return index;
