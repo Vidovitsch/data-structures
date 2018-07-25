@@ -1,7 +1,6 @@
 const { assert } = require('chai');
 const { Queue } = require('../index');
 
-/* eslint-disable no-undef */
 describe('Queue', () => {
   it('dequeue() should throw an error when the queue is empty', () => {
     const queue = new Queue();
@@ -99,4 +98,3 @@ describe('Queue', () => {
     assert.equal(queueArr[2], 12);
   });
 });
-/* eslint-enable no-undef */

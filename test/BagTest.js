@@ -1,7 +1,6 @@
 const { assert } = require('chai');
 const { Bag } = require('../index');
 
-/* eslint-disable no-undef */
 describe('Bag', () => {
   it('add() should add a new item to the bag', () => {
     const bag = new Bag();
@@ -40,4 +39,3 @@ describe('Bag', () => {
     assert.equal(bagArr[2], 10);
   });
 });
-/* eslint-enable no-undef */

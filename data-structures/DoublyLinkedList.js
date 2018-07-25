@@ -2,11 +2,11 @@ let head = null;
 let tail = null;
 
 /**
- * A unidirectional implementation of a linked list.
+ * A bidirectional implementation of a linked list.
  *
  * @constructor
  */
-function SinglyLinkedList() {
+function DoublyLinkedList() {
   this.length = 0;
 }
 
@@ -19,6 +19,7 @@ function SinglyLinkedList() {
 function Node(value) {
   this.value = value;
   this.next = null;
+  this.previous = null;
 }
 
 /**
@@ -26,17 +27,29 @@ function Node(value) {
  *
  * Finds a node on a specific index within the linked list.
  *
- * Time complexity (worst): O(n)
+ * Time complexity (worst): O(0.5 * n)
  *
  * @param  {Integer} index [description]
  * @return {Node}       [description]
  */
-function findNode(index) {
+function findNode(index, length) {
+  const m = Math.floor(length / 2);
+  let node;
   let i = 0;
-  let node = head;
-  while (index > i) {
-    node = node.next;
-    i++;
+  // If 'index' is smaller half the length of the linked list,
+  // then look from head, otherwise look from tail.
+  if (m > index) {
+    node = head;
+    while (index > i) {
+      node = node.next;
+      i++;
+    }
+  } else {
+    node = tail;
+    while (index < length - i - 1) {
+      node = node.previous;
+      i++;
+    }
   }
   return node;
 }
@@ -58,6 +71,7 @@ function pushToHead(node, length) {
     const nodeAfter = head;
     head = node;
     head.next = nodeAfter;
+    head.next.previous = head;
   }
 }
 
@@ -79,6 +93,7 @@ function pushToTail(node, length) {
     const nodeBefore = tail;
     tail = node;
     nodeBefore.next = tail;
+    nodeBefore.next.previous = nodeBefore
   }
 }
 
@@ -101,6 +116,7 @@ function removeHead(length) {
   } else {
     remValue = head.value;
     head = head.next;
+    head.previous = null;
   }
   return remValue;
 }
@@ -111,7 +127,7 @@ function removeHead(length) {
  * Removes the item on the tail of the linked list.
  * If the linked list has only one item, the tail and head will be 'null'.
  *
- * Time complexity (worst): O(n)
+ * Time complexity (worst): O(1)
  *
  * @param  {Integer} length length of the linked list
  * @return {Any}        Value of the removed item
@@ -120,11 +136,12 @@ function removeTail(length) {
   // If-statement to check 'length = 1' can be removed,
   // because it will never be called due the implementation of the removeAt() function
   const remValue = tail.value;
-  tail = findNode(length - 2);
+  tail = findNode(length - 2, length);
+  tail.next = null;
   return remValue;
 }
 
-const S = SinglyLinkedList.prototype;
+const D = DoublyLinkedList.prototype;
 
 /**
  * Adds a new item at the end (tail) of the linked list.
@@ -133,7 +150,7 @@ const S = SinglyLinkedList.prototype;
  *
  * @param {Any} value Item to be added
  */
-S.add = function add(value) {
+D.add = function add(value) {
   pushToTail(new Node(value), this.length);
   this.length++;
 };
@@ -141,14 +158,14 @@ S.add = function add(value) {
 /**
  * Inserts an item in a specific index of the linked list.
  *
- * Time complexity (worst): O(n)
+ * Time complexity (worst): O(0.5 * n)
  * Time complexity when 'index = 0' or 'index = length - 1': O(1)
  *
  * @param  {Any} value Item to be inserted
  * @param  {Integer} index Index of the linked list
  * @throws Illegal Argument error unless '0 >= index <= length'
  */
-S.insertAt = function insertAt(value, index) {
+D.insertAt = function insertAt(value, index) {
   if (index < 0 || index > this.length) {
     throw Error(`Illegal Argument: given index is smaller than 0 or bigger than ${this.length}`);
   }
@@ -158,10 +175,12 @@ S.insertAt = function insertAt(value, index) {
   } else if (index === this.length) {
     pushToTail(node, this.length);
   } else {
-    const nodeBefore = findNode(index - 1);
+    const nodeBefore = findNode(index - 1, this.length);
     const nodeNext = nodeBefore.next;
     nodeBefore.next = node;
+    nodeBefore.next.previous = nodeBefore;
     nodeBefore.next.next = nodeNext;
+    nodeBefore.next.next.previous = node;
   }
   this.length++;
 };
@@ -169,13 +188,13 @@ S.insertAt = function insertAt(value, index) {
 /**
  * Removes an item from a specific index of the linked list.
  *
- * Time complexity (worst): O(n)
- * Time complexity when 'index = 0': O(1)
+ * Time complexity (worst): O(0.5 * n)
+ * Time complexity when 'index = 0' or 'index = length - 1': O(1)
  *
  * @param  {Integer} index Index of the linked list
  * @return {Any}       Value of the removed item
  */
-S.removeAt = function removeAt(index) {
+D.removeAt = function removeAt(index) {
   if (index < 0 || index > this.length - 1) {
     throw Error(`Illegal Argument: given index is smaller than 0 or bigger than ${this.length - 1}`);
   }
@@ -185,9 +204,10 @@ S.removeAt = function removeAt(index) {
   } else if (index === this.length - 1) {
     value = removeTail(this.length);
   } else {
-    const nodeBefore = findNode(index - 1);
+    const nodeBefore = findNode(index - 1, this.length);
     value = nodeBefore.next.value;
     nodeBefore.next = nodeBefore.next.next;
+    nodeBefore.next.previous = nodeBefore;
   }
   this.length--;
   return value;
@@ -196,34 +216,44 @@ S.removeAt = function removeAt(index) {
 /**
  * Searches an item from a specific index of the linked list.
  *
- * Time complexity (worst): O(n)
+ * Time complexity (worst): O(0.5 * n)
  * Time complexity when 'index = 0' or 'index = length - 1': O(1)
  *
  * @param  {Integer} index Index of the linked list
  * @return {Any}       Value of the removed item
  */
-S.search = function search(index) {
+D.search = function search(index) {
   if (index < 0 || index > this.length - 1) {
     throw Error(`Illegal Argument: given index is smaller than 0 or bigger than ${this.length - 1}`);
   }
-  return index === 0 ? head.value : (index === this.length - 1 ? tail.value : findNode(index).value);
+  return index === 0 ? head.value : (index === this.length - 1 ? tail.value : findNode(index, this.length).value);
 };
 
 /**
  * Returns an array of the items in this linked list.
+ * The array will be in reversed order if 'reversed' is true.
  *
  * Time complexity: O(n)
  *
  * @return {Any[]} Array of items in this linked list
  */
-S.asArray = function asArray() {
+D.asArray = function asArray(reversed) {
   const arr = new Array(this.length);
-  let node = head;
-  for (let i = 0; i < this.length; i += 1) {
-    arr[i] = node.value;
-    node = node.next;
+  let node;
+  if (reversed) {
+    node = tail;
+    for (let i = 0; i < this.length; i += 1) {
+      arr[i] = node.value;
+      node = node.previous;
+    }
+  } else {
+    node = head;
+    for (let i = 0; i < this.length; i += 1) {
+      arr[i] = node.value;
+      node = node.next;
+    }
   }
   return arr;
 };
 
-module.exports = SinglyLinkedList;
+module.exports = DoublyLinkedList;
