@@ -80,6 +80,48 @@ function pushToTail(node, length) {
     tail = node;
     nodeBefore.next = tail;
   }
+
+  /**
+   * Helper method.
+   *
+   * Removes the item on the head of the linked list.
+   * If the linked list has only one item, the tail and head will be 'null'.
+   *
+   * Time complexity (worst): O(1)
+   *
+   * @param  {Integer} length length of the linked list
+   * @return {Any}        Value of the removed item
+   */
+  function removeHead(length) {
+    if (length === 1) {
+      head = tail = null;
+    } else {
+      const { value } = head;
+      head = head.next;
+    }
+    return value;
+  }
+
+  /**
+   * Helper method.
+   *
+   * Removes the item on the tail of the linked list.
+   * If the linked list has only one item, the tail and head will be 'null'.
+   *
+   * Time complexity (worst): O(n)
+   *
+   * @param  {Integer} length length of the linked list
+   * @return {Any}        Value of the removed item
+   */
+  function removeTail(length) {
+    if (length === 1) {
+      tail = head = null;
+    } else {
+      const { value } = tail;
+      tail = findNode(length - 2);
+    }
+    return value;
+  }
 }
 
 const S = SinglyLinkedList.prototype;
@@ -97,23 +139,23 @@ S.add = function add(value) {
 };
 
 /**
- * Inserts a new item in a specific index of the linked list.
+ * Inserts an item in a specific index of the linked list.
  *
  * Time complexity (worst): O(n)
  * Time complexity when 'index = 0' or 'index = length - 1': O(1)
  *
  * @param  {Any} value Item to be inserted
  * @param  {Integer} index Index of the linked list
- * @throws Illegal Argument error unless '0 >= index < length'
+ * @throws Illegal Argument error unless '0 >= index <= length'
  */
 S.insertAt = function insertAt(value, index) {
-  if (index < 0 || index >= this.length) {
-    throw Error(`Illegal Argument: given index is smaller than 0 or bigger than ${this.length - 1}`);
+  if (index < 0 || index > this.length) {
+    throw Error(`Illegal Argument: given index is smaller than 0 or bigger than ${this.length}`);
   }
   const node = new Node(value);
   if (index === 0) {
     pushToHead(node, this.length);
-  } else if (index === this.length - 1) {
+  } else if (index === this.length) {
     pushToTail(node, this.length);
   } else {
     const nodeBefore = findNode(index - 1);
