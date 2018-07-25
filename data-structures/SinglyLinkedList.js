@@ -74,54 +74,54 @@ function pushToHead(node, length) {
  */
 function pushToTail(node, length) {
   if (length === 0) {
-    tail = head = node
+    tail = head = node;
   } else {
     const nodeBefore = tail;
     tail = node;
     nodeBefore.next = tail;
   }
+}
 
-  /**
-   * Helper method.
-   *
-   * Removes the item on the head of the linked list.
-   * If the linked list has only one item, the tail and head will be 'null'.
-   *
-   * Time complexity (worst): O(1)
-   *
-   * @param  {Integer} length length of the linked list
-   * @return {Any}        Value of the removed item
-   */
-  function removeHead(length) {
-    if (length === 1) {
-      head = tail = null;
-    } else {
-      const { value } = head;
-      head = head.next;
-    }
-    return value;
+/**
+ * Helper method.
+ *
+ * Removes the item on the head of the linked list.
+ * If the linked list has only one item, the tail and head will be 'null'.
+ *
+ * Time complexity (worst): O(1)
+ *
+ * @param  {Integer} length length of the linked list
+ * @return {Any}        Value of the removed item
+ */
+function removeHead(length) {
+  let remValue;
+  if (length === 1) {
+    remValue = head.value;
+    head = tail = null;
+  } else {
+    remValue = head.value;
+    head = head.next;
   }
+  return remValue;
+}
 
-  /**
-   * Helper method.
-   *
-   * Removes the item on the tail of the linked list.
-   * If the linked list has only one item, the tail and head will be 'null'.
-   *
-   * Time complexity (worst): O(n)
-   *
-   * @param  {Integer} length length of the linked list
-   * @return {Any}        Value of the removed item
-   */
-  function removeTail(length) {
-    if (length === 1) {
-      tail = head = null;
-    } else {
-      const { value } = tail;
-      tail = findNode(length - 2);
-    }
-    return value;
-  }
+/**
+ * Helper method.
+ *
+ * Removes the item on the tail of the linked list.
+ * If the linked list has only one item, the tail and head will be 'null'.
+ *
+ * Time complexity (worst): O(n)
+ *
+ * @param  {Integer} length length of the linked list
+ * @return {Any}        Value of the removed item
+ */
+function removeTail(length) {
+  // If-statement to check 'length = 1' can be removed,
+  // because it will never be called due the implementation of the removeAt() function
+  const remValue = tail.value;
+  tail = findNode(length - 2);
+  return remValue;
 }
 
 const S = SinglyLinkedList.prototype;
@@ -206,13 +206,7 @@ S.search = function search(index) {
   if (index < 0 || index > this.length - 1) {
     throw Error(`Illegal Argument: index=${index} is smaller than 0 or bigger than 'length - 1'`);
   }
-  if (index === 0) {
-    return head.value;
-  }
-  if (index === this.length - 1) {
-    return tail.value;
-  }
-  return findNode(index).value;
+  return index === 0 ? head.value : (index === this.length - 1 ? tail.value : findNode(index).value);
 };
 
 /**
@@ -225,8 +219,8 @@ S.search = function search(index) {
 S.asArray = function asArray() {
   const arr = new Array(this.length);
   let node = head;
-  while (node.next) {
-    arr.push(node.value);
+  for (let i = 0; i < this.length; i += 1) {
+    arr[i] = node.value;
     node = node.next;
   }
   return arr;
