@@ -204,7 +204,7 @@ S.removeAt = function removeAt(index) {
  */
 S.search = function search(index) {
   if (index < 0 || index > this.length - 1) {
-    throw Error(`Illegal Argument: index=${index} is smaller than 0 or bigger than 'length - 1'`);
+    throw Error(`Illegal Argument: given index is smaller than 0 or bigger than ${this.length - 1}`);
   }
   return index === 0 ? head.value : (index === this.length - 1 ? tail.value : findNode(index).value);
 };

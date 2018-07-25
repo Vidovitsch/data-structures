@@ -158,7 +158,7 @@ D.add = function add(value) {
 /**
  * Inserts an item in a specific index of the linked list.
  *
- * Time complexity (worst): O(n)
+ * Time complexity (worst): O(0.5 * n)
  * Time complexity when 'index = 0' or 'index = length - 1': O(1)
  *
  * @param  {Any} value Item to be inserted
@@ -188,7 +188,7 @@ D.insertAt = function insertAt(value, index) {
 /**
  * Removes an item from a specific index of the linked list.
  *
- * Time complexity (worst): O(n)
+ * Time complexity (worst): O(0.5 * n)
  * Time complexity when 'index = 0' or 'index = length - 1': O(1)
  *
  * @param  {Integer} index Index of the linked list
@@ -216,7 +216,7 @@ D.removeAt = function removeAt(index) {
 /**
  * Searches an item from a specific index of the linked list.
  *
- * Time complexity (worst): O(n)
+ * Time complexity (worst): O(0.5 * n)
  * Time complexity when 'index = 0' or 'index = length - 1': O(1)
  *
  * @param  {Integer} index Index of the linked list
@@ -224,7 +224,7 @@ D.removeAt = function removeAt(index) {
  */
 D.search = function search(index) {
   if (index < 0 || index > this.length - 1) {
-    throw Error(`Illegal Argument: index=${index} is smaller than 0 or bigger than 'length - 1'`);
+    throw Error(`Illegal Argument: given index is smaller than 0 or bigger than ${this.length - 1}`);
   }
   return index === 0 ? head.value : (index === this.length - 1 ? tail.value : findNode(index, this.length).value);
 };
