@@ -1,7 +1,6 @@
 const { assert } = require('chai');
 const { DisjointSet } = require('../index');
 
-/* eslint-disable no-undef */
 describe('DisjointSet', () => {
   /**
    * Error throwing tests
@@ -187,4 +186,3 @@ describe('DisjointSet', () => {
     assert.equal(n - 3, disjointSet.count);
   });
 });
-/* eslint-enable no-undef */

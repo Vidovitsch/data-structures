@@ -1,7 +1,6 @@
 const { assert } = require('chai');
 const { Stack } = require('../index');
 
-/* eslint-disable no-undef */
 describe('Stack', () => {
   it('pop() should throw an error when the stack is empty', () => {
     const stack = new Stack();
@@ -104,4 +103,3 @@ describe('Stack', () => {
     assert.equal(stackArr[2], 10);
   });
 });
-/* eslint-enable no-undef */

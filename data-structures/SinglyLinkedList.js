@@ -51,31 +51,36 @@ const S = SinglyLinkedList.prototype;
 S.add = function add(value) {
   const node = new Node(value);
   if (this.length === 0) {
-    head = node;
-    tail = node;
+    head = tail = node;
   } else {
-    const t = tail;
+    const nodeBefore = tail;
     tail = node;
-    t.next = tail;
+    nodeBefore.next = tail;
   }
-  this.length += 1;
+  this.length++;
 };
 
+/**
+ * Inserts a new item in a specific index of the linked list.
+ *
+ * @param  {Any} value Item to be inserted
+ * @param  {Integer} index Index of the linked list
+ * @throws Illegal Argument error unless '0 >= index < length'
+ */
 S.insertAt = function insertAt(value, index) {
-  if (index < 0 || index > this.length - 1) {
-    throw Error(`Illegal Argument: index=${index} is smaller than 0 or bigger than 'length - 1'`);
+  if (index < 0 || index >= this.length) {
+    throw Error(`Illegal Argument: given index is smaller than 0 or bigger than ${this.length - 1}`);
   }
   if (index === 0) {
     this.insertHead(value);
   } else if (index === this.length - 1) {
     this.add(value);
   } else {
-    const newNode = new Node(value);
     const nodeBefore = findNode(index - 1);
-    const oldNext = nodeBefore.next;
+    const nodeNext = nodeBefore.next;
     nodeBefore.next = new Node(value);
-    newNode.next = oldNext;
-    this.length += 1;
+    nodeBefore.next.next = nodeNext;
+    this.length++;
   }
 };
 
@@ -95,7 +100,7 @@ S.removeAt = function removeAt(index) {
   } else {
     const nodeBefore = findNode(index - 1);
     nodeBefore.next = nodeBefore.next.next;
-    this.length -= 1;
+    this.length--;
   }
 };
 
@@ -104,10 +109,10 @@ S.search = function search(index) {
     throw Error(`Illegal Argument: index=${index} is smaller than 0 or bigger than 'length - 1'`);
   }
   if (index === 0) {
-    return this.searchHead();
+    return head.value;
   }
   if (index === this.length - 1) {
-    return this.searchTail();
+    return tail.value;
   }
   return findNode(index).value;
 };
@@ -174,3 +179,5 @@ S.asArray = function asArray() {
   }
   return arr;
 };
+
+module.exports = SinglyLinkedList;
