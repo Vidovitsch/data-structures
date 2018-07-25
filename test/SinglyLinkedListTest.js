@@ -57,5 +57,30 @@ describe('SinglyLinkedList', () => {
     assert.equal(llist.search(0), 8);
     assert.equal(llist.search(1), 12);
     assert.equal(llist.search(2), 10);
+
+    // Insert third item
+    llist.insertAt(14, 2);
+
+    // Assert #3
+    assert.equal(llist.search(0), 8);
+    assert.equal(llist.search(1), 12);
+    assert.equal(llist.search(2), 14);
+    assert.equal(llist.search(3), 10);
+  });
+
+  //Tests for removeAt() function
+  it("removeAt() should throw an error when index is out of range 'i < 0' or 'i > length - 1' ", () => {
+    const llist = new SinglyLinkedList();
+
+    // Assert #1
+    assert.throws(() => { llist.insertAt(12, 1); }, Error);
+
+    // Add two items
+    llist.add(8);
+    llist.add(10);
+
+    // Assert #2
+    assert.throws(() => { llist.insertAt(12, -1); }, Error);
+    assert.throws(() => { llist.insertAt(12, 3); }, Error);
   });
 });

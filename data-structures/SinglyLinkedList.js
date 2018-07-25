@@ -167,25 +167,41 @@ S.insertAt = function insertAt(value, index) {
 };
 
 /**
- * [removeAt description]
- * @param  {[type]} index [description]
- * @return {[type]}       [description]
+ * Removes an item from a specific index of the linked list.
+ *
+ * Time complexity (worst): O(n)
+ * Time complexity when 'index = 0': O(1)
+ *
+ * @param  {Integer} index Index of the linked list
+ * @return {Any}       Value of the removed item
  */
 S.removeAt = function removeAt(index) {
   if (index < 0 || index > this.length - 1) {
-    throw Error(`Illegal Argument: index=${index} is smaller than 0 or bigger than 'length - 1'`);
+    throw Error(`Illegal Argument: given index is smaller than 0 or bigger than ${this.length - 1}`);
   }
+  let value;
   if (index === 0) {
-    this.removeHead();
+    value = removeHead(this.length);
   } else if (index === this.length - 1) {
-    this.removeTail();
+    value = removeTail(this.length);
   } else {
     const nodeBefore = findNode(index - 1);
+    value = nodeBefore.next.value;
     nodeBefore.next = nodeBefore.next.next;
-    this.length--;
   }
+  this.length--;
+  return value;
 };
 
+/**
+ * Searches an item from a specific index of the linked list.
+ *
+ * Time complexity (worst): O(n)
+ * Time complexity when 'index = 0' or 'index = length - 1': O(1)
+ *
+ * @param  {Integer} index Index of the linked list
+ * @return {Any}       Value of the removed item
+ */
 S.search = function search(index) {
   if (index < 0 || index > this.length - 1) {
     throw Error(`Illegal Argument: index=${index} is smaller than 0 or bigger than 'length - 1'`);
@@ -199,59 +215,13 @@ S.search = function search(index) {
   return findNode(index).value;
 };
 
-S.removeHead = function removeTail() {
-  if (this.length === 0) {
-    throw new Error('No Such Element: linked list is empty');
-  }
-  if (this.length === 1) {
-    head = null;
-    tail = null;
-  } else {
-    head = head.next;
-  }
-  this.length -= 1;
-};
-
-S.removeTail = function removeTail() {
-  if (this.length === 0) {
-    throw new Error('No Such Element: linked list is empty');
-  }
-  if (this.length === 1) {
-    head = null;
-    tail = null;
-  } else {
-    findNode(this.length - 2).next = null;
-  }
-  this.length -= 1;
-};
-
-S.insertHead = function insertHead(value) {
-  const newNode = new Node(value);
-  if (this.length === 0) {
-    head = newNode;
-    tail = newNode;
-  } else {
-    const oldHead = head;
-    head = newNode;
-    head.next = oldHead;
-  }
-  this.length += 1;
-};
-
-S.peekStart = function peekStart() {
-  if (this.length === 0) {
-    throw new Error('No Such Element: linked list is empty');
-  }
-  return head.value;
-};
-
-S.peekEnd = function peekEnd() {
-  if (this.length === 0) {
-    throw new Error('No Such Element: linked list is empty');
-  }
-  return tail.value;
-};
-
+/**
+ * Returns an array of the items in this linked list.
+ *
+ * Time complexity: O(n)
+ *
+ * @return {Any[]} Array of items in this linked list
+ */
 S.asArray = function asArray() {
   const arr = new Array(this.length);
   let node = head;
