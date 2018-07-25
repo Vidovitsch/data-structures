@@ -26,6 +26,8 @@ function Node(value) {
  *
  * Finds a node on a specific index within the linked list.
  *
+ * Time complexity (worst): O(n)
+ *
  * @param  {Integer} index [description]
  * @return {Node}       [description]
  */
@@ -39,6 +41,47 @@ function findNode(index) {
   return node;
 }
 
+/**
+ * Helper method.
+ *
+ * Pushes an item to the head of the linked list.
+ * If the linked list is empty, the tail and head will be the same.
+ *
+ * Time complexity (worst): O(1)
+ *
+ * @param  {Node} node Node to be pushed
+ */
+function pushToHead(node, length) {
+  if (length === 0) {
+    head = tail = node;
+  } else {
+    const oldHead = head;
+    head = node;
+    head.next = oldHead;
+  }
+}
+
+/**
+ * Helper method.
+ *
+ * Pushes an item to the tail of the linked list.
+ * If the linked list is empty, the tail and head will be the same.
+ *
+ * Time complexity (worst): O(1)
+ *
+ * @param  {Node} node Node to be pushed
+ * @param  {Integer} length length of the linked list
+ */
+function pushToTail(node, length) {
+  if (length === 0) {
+    tail = head = node
+  } else {
+    const nodeBefore = tail;
+    tail = node;
+    nodeBefore.next = tail;
+  }
+}
+
 const S = SinglyLinkedList.prototype;
 
 /**
@@ -49,19 +92,15 @@ const S = SinglyLinkedList.prototype;
  * @param {Any} value Item to be added
  */
 S.add = function add(value) {
-  const node = new Node(value);
-  if (this.length === 0) {
-    head = tail = node;
-  } else {
-    const nodeBefore = tail;
-    tail = node;
-    nodeBefore.next = tail;
-  }
+  pushToTail(new Node(value), this.length);
   this.length++;
 };
 
 /**
  * Inserts a new item in a specific index of the linked list.
+ *
+ * Time complexity (worst): O(n)
+ * Time complexity when 'index = 0' or 'index = length - 1': O(1)
  *
  * @param  {Any} value Item to be inserted
  * @param  {Integer} index Index of the linked list
@@ -71,17 +110,18 @@ S.insertAt = function insertAt(value, index) {
   if (index < 0 || index >= this.length) {
     throw Error(`Illegal Argument: given index is smaller than 0 or bigger than ${this.length - 1}`);
   }
+  const node = new Node(value);
   if (index === 0) {
-    this.insertHead(value);
+    pushToHead(node, this.length);
   } else if (index === this.length - 1) {
-    this.add(value);
+    pushToTail(node, this.length);
   } else {
     const nodeBefore = findNode(index - 1);
     const nodeNext = nodeBefore.next;
-    nodeBefore.next = new Node(value);
+    nodeBefore.next = node;
     nodeBefore.next.next = nodeNext;
-    this.length++;
   }
+  this.length++;
 };
 
 /**
