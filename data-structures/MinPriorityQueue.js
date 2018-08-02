@@ -1,7 +1,7 @@
 let tree;
 
 /**
- * A max oriented binary heap implementation.
+ * A min oriented binary queue implementation.
  *
  * Complexities:
  * 1. find max: O(1)
@@ -10,7 +10,7 @@ let tree;
  *
  * @constructor
  */
-function MaxHeap() {
+function MinPriorityQueue() {
   this.length = 0;
   tree = [undefined];
 }
@@ -32,13 +32,13 @@ function swap(a, b) {
 /**
  * Helper method.
  *
- * Orders the heap by setting the value of 'k' higher in the tree
- * when its parent is smaller.
+ * Orders the queue by setting the value of 'k' higher in the tree
+ * when its parent is greater.
  *
  * @param  {Integer} k index to check with his parent
  */
 function swim(k) {
-  while (k > 1 && tree[Math.floor(k / 2)] < tree[k]) {
+  while (k > 1 && tree[Math.floor(k / 2)] > tree[k]) {
     swap(k, Math.floor(k / 2));
     k = Math.floor(k / 2);
   }
@@ -47,30 +47,30 @@ function swim(k) {
 /**
  * Helper method.
  *
- * Orders the heap by setting the value of 'k' lower in the tree
- * when one of the two children is greater.
+ * Orders the queue by setting the value of 'k' lower in the tree
+ * when one of the two children is smaller.
  *
  * @param  {Integer} k index to check with his parent
- * @param  {Integer} n length of the heap
+ * @param  {Integer} n length of the queue
  */
 function sink(k, n) {
   while (2 * k <= n) {
     let j = 2 * k;
-    if (j < n && tree[j] < tree[j + 1]) j++;
-    if (tree[k] > tree[j]) break;
+    if (j < n && tree[j] > tree[j + 1]) j++;
+    if (tree[k] < tree[j]) break;
     swap(k, j);
     k = j;
   }
 }
 
-const M = MaxHeap.prototype;
+const M = MinPriorityQueue.prototype;
 
 /**
- * Inserts a new value within the heap.
+ * Inserts a new value within the queue.
  *
  * Time complexity (worst): O(log(n))
  *
- * @param  {Any} value value to be inserted into the heap
+ * @param  {Any} value value to be inserted into the queue
  */
 M.insert = function insert(value) {
   tree.push(value);
@@ -79,26 +79,26 @@ M.insert = function insert(value) {
 }
 
 /**
- * Returns the max value currently in the heap.
+ * Returns the min value currently in the queue.
  *
  * Time complexity (worst): O(1)
  *
- * @return {Any} current maximum value of the heap
+ * @return {Any} current maximum value of the queue
  */
-M.getMax = function getMax() {
-  if (this.length === 0) throw new Error('Not Found: heap is empty');
+M.getMin = function getMin() {
+  if (this.length === 0) throw new Error('Not Found: queue is empty');
   return tree[1];
 }
 
 /**
- * Deletes the max value currently in the heap.
+ * Deletes the min value currently in the queue.
  *
  * Time complexity (worst): O(log(n))
  *
  * @return {Any} deleted value
  */
-M.delMax = function delMax() {
-  if (this.length === 0) throw new Error('Not Found: heap is empty');
+M.delMin = function delMin() {
+  if (this.length === 0) throw new Error('Not Found: queue is empty');
   swap(1, this.length);
   this.length--;
   sink(1, this.length);
@@ -106,14 +106,14 @@ M.delMax = function delMax() {
 }
 
 /**
- * Returns an array representation of the heap.
+ * Returns an array representation of the queue.
  *
  * Time complexity (worst): O(1)
  *
- * @return {Any[]} array representation of the heap.
+ * @return {Any[]} array representation of the queue.
  */
 M.asArray = function asArray() {
   return tree.slice(1);
 }
 
-module.exports = MaxHeap;
+module.exports = MinPriorityQueue;

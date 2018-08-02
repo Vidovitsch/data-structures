@@ -1,16 +1,16 @@
 const { assert } = require('chai');
-const { MinHeap } = require('../index');
+const { MinPriorityQueue } = require('../index');
 
-describe('MinHeap', () => {
-  it('a new MinHeap instance should initialize with a length of 0', () => {
-    const heap = new MinHeap();
+describe('MinPriorityQueue', () => {
+  it('a new MinPriorityQueue instance should initialize with a length of 0', () => {
+    const heap = new MinPriorityQueue();
 
     // Assert #1
     assert.equal(heap.length, 0);
   });
 
   it('insert() should add an item to the heap', () => {
-    const heap = new MinHeap();
+    const heap = new MinPriorityQueue();
 
     // Insert three items
     heap.insert(-5);
@@ -27,7 +27,7 @@ describe('MinHeap', () => {
   });
 
   it('insert() should add the min value at the top (beginning) of the heap', () => {
-    const heap = new MinHeap();
+    const heap = new MinPriorityQueue();
     const min = -25;
 
     // Insert three items
@@ -40,7 +40,7 @@ describe('MinHeap', () => {
   });
 
   it('getMin() should return the min value in the heap', () => {
-    const heap = new MinHeap();
+    const heap = new MinPriorityQueue();
     const min = -1507;
 
     // Insert five items
@@ -55,7 +55,7 @@ describe('MinHeap', () => {
   });
 
   it('delMin() should return and delete the min value in the heap', () => {
-    let heap = new MinHeap();
+    let heap = new MinPriorityQueue();
     const min = -11507;
 
     // Insert nine items
@@ -80,7 +80,7 @@ describe('MinHeap', () => {
     assert.equal(heap.length, 4);
 
     // Test corner cases!!!
-    heap = new MinHeap();
+    heap = new MinPriorityQueue();
 
     // Insert five items
     heap.insert(2019);
@@ -97,7 +97,7 @@ describe('MinHeap', () => {
   });
 
   it('asArray() should return the binary heap in array format', () => {
-    const heap = new MinHeap();
+    const heap = new MinPriorityQueue();
 
     // Insert five items
     heap.insert(2019);
@@ -117,10 +117,10 @@ describe('MinHeap', () => {
   });
 
   it('getMin() should throw an error when heap is empty', () => {
-    assert.throws(() => { new MinHeap().getMin(); }, Error);
+    assert.throws(() => { new MinPriorityQueue().getMin(); }, Error);
   });
 
   it('delMin() should throw an error when heap is empty', () => {
-    assert.throws(() => { new MinHeap().delMin(); }, Error);
+    assert.throws(() => { new MinPriorityQueue().delMin(); }, Error);
   });
 });
