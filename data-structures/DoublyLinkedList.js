@@ -36,7 +36,7 @@ function findNode(index, length) {
   const m = Math.floor(length / 2);
   let node;
   let i = 0;
-  // If 'index' is smaller half the length of the linked list,
+  // If 'index' is smaller than half the length of the linked list,
   // then look from head, otherwise look from tail.
   if (m > index) {
     node = head;

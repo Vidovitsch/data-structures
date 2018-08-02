@@ -4,6 +4,8 @@ const Queue = require('./data-structures/Queue');
 const Bag = require('./data-structures/Bag');
 const SinglyLinkedList = require('./data-structures/SinglyLinkedList');
 const DoublyLinkedList = require('./data-structures/DoublyLinkedList');
+const MaxPriorityQueue = require('./data-structures/MaxPriorityQueue');
+const MinPriorityQueue = require('./data-structures/MinPriorityQueue');
 
 module.exports = {
   DisjointSet,
@@ -12,4 +14,6 @@ module.exports = {
   Bag,
   SinglyLinkedList,
   DoublyLinkedList,
+  MaxPriorityQueue,
+  MinPriorityQueue,
 };
