@@ -1,7 +1,7 @@
 let tree;
 
 /**
- * A max oriented binary heap implementation.
+ * A min oriented binary heap implementation.
  *
  * Complexities:
  * 1. find max: O(1)
@@ -10,7 +10,7 @@ let tree;
  *
  * @constructor
  */
-function MaxHeap() {
+function MinHeap() {
   this.length = 0;
   tree = [undefined];
 }
@@ -33,12 +33,12 @@ function swap(a, b) {
  * Helper method.
  *
  * Orders the heap by setting the value of 'k' higher in the tree
- * when its parent is smaller.
+ * when its parent is greater.
  *
  * @param  {Integer} k index to check with his parent
  */
 function swim(k) {
-  while (k > 1 && tree[Math.floor(k / 2)] < tree[k]) {
+  while (k > 1 && tree[Math.floor(k / 2)] > tree[k]) {
     swap(k, Math.floor(k / 2));
     k = Math.floor(k / 2);
   }
@@ -48,7 +48,7 @@ function swim(k) {
  * Helper method.
  *
  * Orders the heap by setting the value of 'k' lower in the tree
- * when one of the two children is greater.
+ * when one of the two children is smaller.
  *
  * @param  {Integer} k index to check with his parent
  * @param  {Integer} n length of the heap
@@ -56,14 +56,14 @@ function swim(k) {
 function sink(k, n) {
   while (2 * k <= n) {
     let j = 2 * k;
-    if (j < n && tree[j] < tree[j + 1]) j++;
-    if (tree[k] > tree[j]) break;
+    if (j < n && tree[j] > tree[j + 1]) j++;
+    if (tree[k] < tree[j]) break;
     swap(k, j);
     k = j;
   }
 }
 
-const M = MaxHeap.prototype;
+const M = MinHeap.prototype;
 
 /**
  * Inserts a new value within the heap.
@@ -79,25 +79,25 @@ M.insert = function insert(value) {
 }
 
 /**
- * Returns the max value currently in the heap.
+ * Returns the min value currently in the heap.
  *
  * Time complexity (worst): O(1)
  *
  * @return {Any} current maximum value of the heap
  */
-M.getMax = function getMax() {
+M.getMin = function getMin() {
   if (this.length === 0) throw new Error('Not Found: heap is empty');
   return tree[1];
 }
 
 /**
- * Deletes the max value currently in the heap.
+ * Deletes the min value currently in the heap.
  *
  * Time complexity (worst): O(log(n))
  *
  * @return {Any} deleted value
  */
-M.delMax = function delMax() {
+M.delMin = function delMin() {
   if (this.length === 0) throw new Error('Not Found: heap is empty');
   swap(1, this.length);
   this.length--;
@@ -116,4 +116,4 @@ M.asArray = function asArray() {
   return tree.slice(1);
 }
 
-module.exports = MaxHeap;
+module.exports = MinHeap;

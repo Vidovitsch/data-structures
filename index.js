@@ -5,6 +5,7 @@ const Bag = require('./data-structures/Bag');
 const SinglyLinkedList = require('./data-structures/SinglyLinkedList');
 const DoublyLinkedList = require('./data-structures/DoublyLinkedList');
 const MaxHeap = require('./data-structures/MaxHeap');
+const MinHeap = require('./data-structures/MinHeap');
 
 module.exports = {
   DisjointSet,
@@ -14,4 +15,5 @@ module.exports = {
   SinglyLinkedList,
   DoublyLinkedList,
   MaxHeap,
+  MinHeap,
 };
