@@ -3,124 +3,124 @@ const { MinPriorityQueue } = require('../index');
 
 describe('MinPriorityQueue', () => {
   it('a new MinPriorityQueue instance should initialize with a length of 0', () => {
-    const heap = new MinPriorityQueue();
+    const queue = new MinPriorityQueue();
 
     // Assert #1
-    assert.equal(heap.length, 0);
+    assert.equal(queue.length, 0);
   });
 
-  it('insert() should add an item to the heap', () => {
-    const heap = new MinPriorityQueue();
+  it('insert() should add an item to the queue', () => {
+    const queue = new MinPriorityQueue();
 
     // Insert three items
-    heap.insert(-5);
-    heap.insert(-15);
-    heap.insert(-25);
+    queue.insert(-5);
+    queue.insert(-15);
+    queue.insert(-25);
 
     // Assert #1 (check length)
-    assert.equal(heap.length, 3);
+    assert.equal(queue.length, 3);
 
     // Assert #2 (check for correct items)
-    assert.equal(heap.asArray().indexOf(-5) !== -1, true);
-    assert.equal(heap.asArray().indexOf(-15) !== -1, true);
-    assert.equal(heap.asArray().indexOf(-25) !== -1, true);
+    assert.equal(queue.asArray().indexOf(-5) !== -1, true);
+    assert.equal(queue.asArray().indexOf(-15) !== -1, true);
+    assert.equal(queue.asArray().indexOf(-25) !== -1, true);
   });
 
-  it('insert() should add the min value at the top (beginning) of the heap', () => {
-    const heap = new MinPriorityQueue();
+  it('insert() should add the min value at the top (beginning) of the queue', () => {
+    const queue = new MinPriorityQueue();
     const min = -25;
 
     // Insert three items
-    heap.insert(-5);
-    heap.insert(-15);
-    heap.insert(min);
+    queue.insert(-5);
+    queue.insert(-15);
+    queue.insert(min);
 
     // Assert #1 (check if min at beginning)
-    assert.equal(heap.asArray()[0], min);
+    assert.equal(queue.asArray()[0], min);
   });
 
-  it('getMin() should return the min value in the heap', () => {
-    const heap = new MinPriorityQueue();
+  it('getMin() should return the min value in the queue', () => {
+    const queue = new MinPriorityQueue();
     const min = -1507;
 
     // Insert five items
-    heap.insert(2019);
-    heap.insert(-1499);
-    heap.insert(117);
-    heap.insert(min);
-    heap.insert(0);
+    queue.insert(2019);
+    queue.insert(-1499);
+    queue.insert(117);
+    queue.insert(min);
+    queue.insert(0);
 
     // Assert #1 (check if min value gets returned)
-    assert.equal(heap.getMin(), min);
+    assert.equal(queue.getMin(), min);
   });
 
-  it('delMin() should return and delete the min value in the heap', () => {
-    let heap = new MinPriorityQueue();
+  it('delMin() should return and delete the min value in the queue', () => {
+    let queue = new MinPriorityQueue();
     const min = -11507;
 
     // Insert nine items
-    heap.insert(-2019);
-    heap.insert(-1499);
-    heap.insert(117);
-    heap.insert(min);
-    heap.insert(0);
-    heap.insert(2019);
-    heap.insert(1499);
-    heap.insert(-117);
-    heap.insert(1507);
+    queue.insert(-2019);
+    queue.insert(-1499);
+    queue.insert(117);
+    queue.insert(min);
+    queue.insert(0);
+    queue.insert(2019);
+    queue.insert(1499);
+    queue.insert(-117);
+    queue.insert(1507);
 
     // Assert #1 (check if min values get returned)
-    assert.equal(heap.delMin(), min);
-    assert.equal(heap.delMin(), -2019);
-    assert.equal(heap.delMin(), -1499);
-    assert.equal(heap.delMin(), -117);
-    assert.equal(heap.delMin(), 0);
+    assert.equal(queue.delMin(), min);
+    assert.equal(queue.delMin(), -2019);
+    assert.equal(queue.delMin(), -1499);
+    assert.equal(queue.delMin(), -117);
+    assert.equal(queue.delMin(), 0);
 
     // Assert #2 (check if length has decreased)
-    assert.equal(heap.length, 4);
+    assert.equal(queue.length, 4);
 
     // Test corner cases!!!
-    heap = new MinPriorityQueue();
+    queue = new MinPriorityQueue();
 
     // Insert five items
-    heap.insert(2019);
-    heap.insert(-1499);
-    heap.insert(117);
-    heap.insert(min);
-    heap.insert(0);
+    queue.insert(2019);
+    queue.insert(-1499);
+    queue.insert(117);
+    queue.insert(min);
+    queue.insert(0);
 
     // Assert #1 (check if min values get returned)
-    assert.equal(heap.delMin(), min);
+    assert.equal(queue.delMin(), min);
 
     // Assert #2 (check if length has decreased)
-    assert.equal(heap.length, 4);
+    assert.equal(queue.length, 4);
   });
 
-  it('asArray() should return the binary heap in array format', () => {
-    const heap = new MinPriorityQueue();
+  it('asArray() should return the binary queue in array format', () => {
+    const queue = new MinPriorityQueue();
 
     // Insert five items
-    heap.insert(2019);
-    heap.insert(-1499);
-    heap.insert(117);
-    heap.insert(-1507);
-    heap.insert(0);
+    queue.insert(2019);
+    queue.insert(-1499);
+    queue.insert(117);
+    queue.insert(-1507);
+    queue.insert(0);
 
     // Assert before
-    assert.equal(heap.length, 5);
+    assert.equal(queue.length, 5);
 
     // Assert #1 (check for correct items)
     const expected = [-1507, -1499, 117, 2019, 0]
-    heap.asArray().forEach((elem, i) => {
+    queue.asArray().forEach((elem, i) => {
       assert.equal(elem, expected[i])
     });
   });
 
-  it('getMin() should throw an error when heap is empty', () => {
+  it('getMin() should throw an error when queue is empty', () => {
     assert.throws(() => { new MinPriorityQueue().getMin(); }, Error);
   });
 
-  it('delMin() should throw an error when heap is empty', () => {
+  it('delMin() should throw an error when queue is empty', () => {
     assert.throws(() => { new MinPriorityQueue().delMin(); }, Error);
   });
 });
