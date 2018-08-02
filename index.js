@@ -4,13 +4,7 @@ const Queue = require('./data-structures/Queue');
 const Bag = require('./data-structures/Bag');
 const SinglyLinkedList = require('./data-structures/SinglyLinkedList');
 const DoublyLinkedList = require('./data-structures/DoublyLinkedList');
-
-const b = new Bag();
-b.add(5);
-const c = new Bag();
-c.add(15);
-console.log(c.asArray());
-
+const MaxHeap = require('./data-structures/MaxHeap');
 
 module.exports = {
   DisjointSet,
@@ -19,4 +13,5 @@ module.exports = {
   Bag,
   SinglyLinkedList,
   DoublyLinkedList,
+  MaxHeap,
 };
