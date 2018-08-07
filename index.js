@@ -6,6 +6,7 @@ const SinglyLinkedList = require('./data-structures/SinglyLinkedList');
 const DoublyLinkedList = require('./data-structures/DoublyLinkedList');
 const MaxPriorityQueue = require('./data-structures/MaxPriorityQueue');
 const MinPriorityQueue = require('./data-structures/MinPriorityQueue');
+const BinarySearchTree = require('./data-structures/BinarySearchTree');
 
 module.exports = {
   DisjointSet,
@@ -16,4 +17,5 @@ module.exports = {
   DoublyLinkedList,
   MaxPriorityQueue,
   MinPriorityQueue,
+  BinarySearchTree,
 };
