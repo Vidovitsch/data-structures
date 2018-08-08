@@ -110,6 +110,7 @@ describe('BinarySearchTree', () => {
     }
 
     const bst = new BinarySearchTree(comp);
+    const bst2 = new BinarySearchTree(null);
 
     // Put three key value pairs
     bst.put(new Node('C'), 50);
@@ -120,5 +121,45 @@ describe('BinarySearchTree', () => {
     assert.equal(bst.root.key.data, 'C');
     assert.equal(bst.root.left.key.data, 'A');
     assert.equal(bst.root.right.key.data, 'E');
+  });
+
+  it("get() should throw an error when the BST is empty", () => {
+    const bst = new BinarySearchTree();
+    assert.throws(() => { bst.get('A'); }, Error);
+  });
+
+  it("get() should throw an error when the key value is 'null'", () => {
+    const bst = new BinarySearchTree();
+
+    // Put one key
+    bst.put('A', 25);
+
+    // Assert
+    assert.throws(() => { bst.get(null); }, Error);
+  });
+
+  it("get() should return 'null' when key is not found", () => {
+    const bst = new BinarySearchTree();
+
+    // Put one key
+    bst.put('A', 25);
+
+    // Assert
+    assert.equal(bst.get('B'), null);
+  });
+
+  it("get() should return the correct value corresponding with the given key", () => {
+    const bst = new BinarySearchTree();
+
+    // Put five keys
+    bst.put('D', 10);
+    bst.put('A', 15);
+    bst.put('E', 20);
+    bst.put('Q', 25);
+    bst.put('Z', 30);
+
+    // Assert
+    assert.equal(bst.get('A'), 15);
+    assert.equal(bst.get('Q'), 25);
   });
 });
