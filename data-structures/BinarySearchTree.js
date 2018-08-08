@@ -32,9 +32,6 @@ function Node(key, value) {
  * Recursively puts the key-value pair into position.
  *
  * @param       {Node} node  Node to compare keys with
- *                           1. If new key is lower: continue with the left child of the node
- *                           2. If new key is greater: continue with the right child of the node
- *                           3. If new key is same: update value of current node
  * @param       {Any} key    Comparable key to be put into the BST
  * @param       {Any} value  Value corresponding to the key
  * @param       {Function}  cmp (optional) custom comparator that defines the sorting/searching
@@ -52,14 +49,11 @@ function _put(node, key, value, cmp) {
 /**
  * Helper method.
  *
- * Recursively puts the key-value pair into position.
+ * Recursively gets the value corresponding with the given key.
  *
  * @param       {Node} node Node to compare keys with
- *                          1. If new key is lower: continue with the left child of the node
- *                          2. If new key is greater: continue with the right child of the node
- *                          3. If new key is same: update value of current node
  * @param       {Any} key   Comparable key to be put into the BST
- * @param       {Any} cmp   Value corresponding to the key
+ * @param       {Function} cmp (optional) custom comparator that defines the sorting/searching
  * @return      {Any}      Value corresponding with the key
  */
 function _get(node, key, cmp) {
@@ -69,6 +63,42 @@ function _get(node, key, cmp) {
   else if (comp < 0)  return _get(node.right, key, cmp);
   else                return node.value;
 }
+
+/**
+ * Helper method.
+ *
+ * Recursively removes the node corresponding with the given key.
+ *
+ * @param       {Node} node Node to compare keys with
+ * @param       {Any} key  Comparable key to be put into the BST
+ * @param       {Function} cmp (optional) custom comparator that defines the sorting/searching
+ * @return      {Any}      Value corresponding with the key
+ */
+function _remove(node, key, cmp) {
+  if (node === null) return null;
+  const comp = compare(node.key, key, cmp);
+  if (comp > 0) node.left = _remove(node.left,  key, cmp);
+  else if (comp < 0) node.right = _remove(node.right, key, cmp);
+  else {
+    if (node.right === null) return node.left;
+    if (node.left === null) return node.right;
+    let temp = node;
+    node = _min(temp.right);
+    node.right = _remove(node, node.key, cmp);
+    node.left = temp.left;
+  }
+  return node;
+}
+
+function _min(node) {
+  if (node.left === null) return node;
+  return _min(node.left);
+}
+
+// function _max(node) {
+//   if (node.right === null) return node;
+//   return _min(node.right);
+// }
 
 /**
  * Helper method.
@@ -125,7 +155,30 @@ B.put = function put(key, value) {
 B.get = function get(key) {
   if (this.root === null) throw new Error("Not Found: BST is empty");
   if (key === null) throw new Error("Invalid Argument: key is null");
-  return _get(this.root, key);
+  return _get(this.root, key, this.comparator);
+}
+
+/**
+ * Removes a node from the BST by an corresponding key.
+ * Implementation uses the Hibbard deletion method.
+ *
+ * Time complexity (worst): O(n)
+ * Time complexity (average): Θ(√n)
+ *
+ * @param  {Any} key Comparable key to be searched into the BST
+ */
+B.remove = function remove(key) {
+  if (this.root === null) throw new Error("Not Found: BST is empty");
+  if (key === null) throw new Error("Invalid Argument: key is null");
+  this.root = _remove(this.root, key, this.comparator);
+}
+
+B.min = function min() {
+  return _min(this.root).key;
+}
+
+B.max = function max() {
+  return _max(this.root).key;
 }
 
 module.exports = BinarySearchTree;

@@ -110,7 +110,6 @@ describe('BinarySearchTree', () => {
     }
 
     const bst = new BinarySearchTree(comp);
-    const bst2 = new BinarySearchTree(null);
 
     // Put three key value pairs
     bst.put(new Node('C'), 50);
@@ -161,5 +160,71 @@ describe('BinarySearchTree', () => {
     // Assert
     assert.equal(bst.get('A'), 15);
     assert.equal(bst.get('Q'), 25);
+  });
+
+  it("get() should return the correct value corresponding with the given key while using a comparator", () => {
+    // Create custom type
+    function Node(value) {
+      this.data = value;
+    }
+    // Create comparator
+    const comp = function(a, b) {
+      if (a.data < b.data) return -1;
+      if (a.data > b.data) return 1;
+      return 0;
+    }
+
+    const bst = new BinarySearchTree(comp);
+
+    // Build three nodes
+    const n1 = new Node('C');
+    const n2 = new Node('A');
+    const n3 = new Node('E');
+
+    // Put three key value pairs
+    bst.put(n1, 10);
+    bst.put(n2, 15);
+    bst.put(n3, 60);
+
+    // Asserts
+    assert.equal(bst.get(n2), 15);
+    assert.equal(bst.get(n3), 60);
+  });
+
+  it("remove() should throw an error when the BST is empty", () => {
+    const bst = new BinarySearchTree();
+    assert.throws(() => { bst.remove('A'); }, Error);
+  });
+
+  it("remove() should throw an error when the key value is 'null'", () => {
+    const bst = new BinarySearchTree();
+
+    // Put one key
+    bst.put('A', 25);
+
+    // Assert
+    assert.throws(() => { bst.remove(null); }, Error);
+  });
+
+  it("remove() should remove the correct node corresponding with the given key", () => {
+    const bst = new BinarySearchTree();
+
+    // Put five keys
+    bst.put('D', 10);
+    bst.put('A', 15);
+    bst.put('F', 20);
+    bst.put('E', 20);
+    bst.put('G', 25);
+    bst.put('Q', 30);
+
+    // Remove three keys
+    bst.remove('D');
+    bst.remove('F');
+    bst.remove('G');
+
+    // Assert
+    assert.equal(bst.get('D'), null);
+    assert.equal(bst.get('F'), null);
+    assert.equal(bst.get('G'), null);
   });
 });
