@@ -209,7 +209,71 @@ describe('BinarySearchTree', () => {
   it("remove() should remove the correct node corresponding with the given key", () => {
     const bst = new BinarySearchTree();
 
-    // Put five keys
+    // Put six keys
+    bst.put('D', 10);
+    bst.put('A', 15);
+    bst.put('C', 15);
+    bst.put('F', 20);
+    bst.put('E', 20);
+    bst.put('G', 25);
+    bst.put('Q', 30);
+
+    // Remove four nodes
+    bst.remove('A');
+    bst.remove('D');
+    bst.remove('F');
+    bst.remove('G');
+    bst.remove('C');
+
+    // Assert
+    assert.equal(bst.get('D'), null);
+    assert.equal(bst.get('F'), null);
+    assert.equal(bst.get('G'), null);
+    assert.equal(bst.get('A'), null);
+  });
+
+  it("remove() should return the correct value corresponding with the given key while using a comparator", () => {
+    // Create custom type
+    function Node(value) {
+      this.data = value;
+    }
+    // Create comparator
+    const comp = function(a, b) {
+      if (a.data < b.data) return -1;
+      if (a.data > b.data) return 1;
+      return 0;
+    }
+
+    const bst = new BinarySearchTree(comp);
+
+    // Build three nodes
+    const n1 = new Node('C');
+    const n2 = new Node('A');
+    const n3 = new Node('E');
+
+    // Put three key value pairs
+    bst.put(n1, 10);
+    bst.put(n2, 15);
+    bst.put(n3, 60);
+
+    // Remove two nodes
+    bst.remove(n1);
+    bst.remove(n2);
+
+    // Asserts
+    assert.equal(bst.get(n1), null);
+    assert.equal(bst.get(n2), null);
+  });
+
+  it("min() should throw an error when the BST is empty", () => {
+    const bst = new BinarySearchTree();
+    assert.throws(() => { bst.min(); }, Error);
+  });
+
+  it("min() should return the key with the smallest value in the BST", () => {
+    const bst = new BinarySearchTree();
+
+    // Put six keys
     bst.put('D', 10);
     bst.put('A', 15);
     bst.put('F', 20);
@@ -217,14 +281,115 @@ describe('BinarySearchTree', () => {
     bst.put('G', 25);
     bst.put('Q', 30);
 
-    // Remove three keys
-    bst.remove('D');
-    bst.remove('F');
-    bst.remove('G');
+    // Assert
+    assert.equal(bst.min(), 'A');
+  });
+
+  it("min() should return the key with the smallest value in the BST while using a comparator", () => {
+    // Create custom type
+    function Node(value) {
+      this.data = value;
+    }
+    // Create comparator
+    const comp = function(a, b) {
+      if (a.data < b.data) return -1;
+      if (a.data > b.data) return 1;
+      return 0;
+    }
+
+    const bst = new BinarySearchTree(comp);
+
+    // Build three nodes
+    const n1 = new Node('C');
+    const n2 = new Node('A');
+    const n3 = new Node('E');
+    const n4 = new Node('Q');
+
+    // Put three key value pairs
+    bst.put(n1, 10);
+    bst.put(n2, 15);
+    bst.put(n3, 60);
+    bst.put(n4, 65);
+
+    // Asserts
+    assert.equal(bst.min(), n2);
+  });
+
+  it("max() should throw an error when the BST is empty", () => {
+    const bst = new BinarySearchTree();
+    assert.throws(() => { bst.max(); }, Error);
+  });
+
+  it("max() should return the key with the greatest value in the BST", () => {
+    const bst = new BinarySearchTree();
+
+    // Put six keys
+    bst.put('D', 10);
+    bst.put('A', 15);
+    bst.put('F', 20);
+    bst.put('E', 20);
+    bst.put('G', 25);
+    bst.put('Y', 30);
 
     // Assert
-    assert.equal(bst.get('D'), null);
-    assert.equal(bst.get('F'), null);
-    assert.equal(bst.get('G'), null);
+    assert.equal(bst.max(), 'Y');
+  });
+
+  it("max() should return the key with the greatest value in the BST while using a comparator", () => {
+    // Create custom type
+    function Node(value) {
+      this.data = value;
+    }
+    // Create comparator
+    const comp = function(a, b) {
+      if (a.data < b.data) return -1;
+      if (a.data > b.data) return 1;
+      return 0;
+    }
+
+    const bst = new BinarySearchTree(comp);
+
+    // Build three nodes
+    const n1 = new Node('C');
+    const n2 = new Node('A');
+    const n3 = new Node('E');
+    const n4 = new Node('Q');
+
+    // Put three key value pairs
+    bst.put(n1, 10);
+    bst.put(n2, 15);
+    bst.put(n3, 60);
+    bst.put(n4, 65);
+
+    // Asserts
+    assert.equal(bst.max(), n4);
+  });
+
+  it("keys() should throw an error when the BST is empty", () => {
+    const bst = new BinarySearchTree();
+    assert.throws(() => { bst.keys(); }, Error);
+  });
+
+  it("keys() should return an ordered list (ascending) of all keys in the BST", () => {
+    const bst = new BinarySearchTree();
+
+    // Put six keys
+    bst.put('D', 10);
+    bst.put('A', 15);
+    bst.put('F', 20);
+    bst.put('E', 20);
+    bst.put('G', 25);
+    bst.put('Y', 30);
+
+    // Get keys
+    const keys = bst.keys();
+
+    // Assert
+    assert.equal(keys[0], 'A');
+    assert.equal(keys[1], 'D');
+    assert.equal(keys[2], 'E');
+    assert.equal(keys[3], 'F');
+    assert.equal(keys[4], 'G');
+    assert.equal(keys[5], 'Y');
   });
 });

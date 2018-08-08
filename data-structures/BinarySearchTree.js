@@ -3,6 +3,10 @@
  *
  * 1. insert:   O(n)    Θ(log(n))
  * 2. search:   O(n)    Θ(log(n))
+ * 3. remove:   O(n)    Θ(√n)
+ * 4. min:      O(n)    Θ(log(n))
+ * 5. max:      O(n)    Θ(log(n))
+ * 6. inOrder:  O(n)    Θ(n)
  *
  * @param  {Function}  comperator (optional) custom comparator that defines the sorting/searching
  * @constructor
@@ -90,15 +94,47 @@ function _remove(node, key, cmp) {
   return node;
 }
 
+/**
+ * Helper method.
+ *
+ * Recursively gets the node with the smallest key valaue.
+ *
+ * @param       {Any} node Node to compare keys with
+ * @return      {Any}      Node with smallest value in the BST
+ */
 function _min(node) {
   if (node.left === null) return node;
   return _min(node.left);
 }
 
-// function _max(node) {
-//   if (node.right === null) return node;
-//   return _min(node.right);
-// }
+/**
+ * Helper method.
+ *
+ * Recursively gets the node with the greatest key valaue.
+ *
+ * @param       {Any} node Node to compare keys with
+ * @return      {Any}      Node with smallest value in the BST
+ */
+function _max(node) {
+  if (node.right === null) return node;
+  return _max(node.right);
+}
+
+/**
+ * Helper method
+ *
+ * Returns all the keys in the BST in ascending order.
+ *
+ * @param       {Any} node [description]
+ * @return      {Any[]} Array of keys in ascending order
+ */
+function _keys(node, keys) {
+  if (node === null) return;
+  _keys(node.left, keys);
+  keys.push(node.key);
+  _keys(node.right, keys);
+  return keys;
+}
 
 /**
  * Helper method.
@@ -165,7 +201,10 @@ B.get = function get(key) {
  * Time complexity (worst): O(n)
  * Time complexity (average): Θ(√n)
  *
+ * @throws {Error} Not Found, unless the size of BST is bigger than 0
+ * @throws {Error} Invalid Argument, unless key is not 'null'
  * @param  {Any} key Comparable key to be searched into the BST
+
  */
 B.remove = function remove(key) {
   if (this.root === null) throw new Error("Not Found: BST is empty");
@@ -173,12 +212,46 @@ B.remove = function remove(key) {
   this.root = _remove(this.root, key, this.comparator);
 }
 
+/**
+ * Returns the key with the minimum value in the BST.
+ *
+ * Time complexity (worst): O(n)
+ * Time complexity (average): Θ(log(n))
+ *
+ * @return {Any} Key with minimum value in the BST
+ * @throws {Error} Not Found, unless the size of BST is bigger than 0
+ */
 B.min = function min() {
+  if (this.root === null) throw new Error("Not Found: BST is empty");
   return _min(this.root).key;
 }
 
+/**
+ * Returns the key with the maximum value in the BST.
+ *
+ * Time complexity (worst): O(n)
+ * Time complexity (average): Θ(log(n))
+ *
+ * @return {Any} Key with maximum value in the BST
+ * @throws {Error} Not Found, unless the size of BST is bigger than 0
+ */
 B.max = function max() {
+  if (this.root === null) throw new Error("Not Found: BST is empty");
   return _max(this.root).key;
+}
+
+/**
+ * Returns an array of all keys in the BST in ascending order
+ *
+ * Time complexity (worst): O(n)
+ * Time complexity (average): Θ(n)
+ *
+ * @return {Any[]} Array of keys in ascending order
+ * @throws {Error} Not Found, unless the size of BST is bigger than 0
+ */
+B.keys = function keys() {
+  if (this.root === null) throw new Error("Not Found: BST is empty");
+  return _keys(this.root, []);
 }
 
 module.exports = BinarySearchTree;
