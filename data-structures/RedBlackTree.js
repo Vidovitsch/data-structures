@@ -6,7 +6,7 @@
  * 3. remove:   O(log(n))    Θ(log(n))
  * 4. min:      O(log(n))    Θ(log(n))
  * 5. max:      O(log(n))    Θ(log(n))
- * 6. inOrder:  O(n)    Θ(n)
+ * 6. inOrder:  O(n)         Θ(n)
  *
  * @param  {Function}  comperator (optional) custom comparator that defines the sorting/searching
  * @constructor
