@@ -1,6 +1,8 @@
 let head = null;
 let tail = null;
 
+// TODO: Place head and tail in object itself
+
 /**
  * A bidirectional implementation of a linked list.
  *

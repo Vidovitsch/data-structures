@@ -8,6 +8,7 @@ const MaxPriorityQueue = require('./data-structures/MaxPriorityQueue');
 const MinPriorityQueue = require('./data-structures/MinPriorityQueue');
 const BinarySearchTree = require('./data-structures/BinarySearchTree');
 const RedBlackTree = require('./data-structures/RedBlackTree');
+const Graph = require('./data-structures/Graph');
 
 module.exports = {
   DisjointSet,
@@ -20,4 +21,5 @@ module.exports = {
   MinPriorityQueue,
   BinarySearchTree,
   RedBlackTree,
+  Graph,
 };
