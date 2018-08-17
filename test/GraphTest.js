@@ -27,7 +27,7 @@ describe('Graph', () => {
     // Assert before
     assert.equal(graph.vertexCount, 0);
 
-    // Add 5 verteces
+    // Add 5 vertices
     graph.addVertex('2');
     graph.addVertex('4');
     graph.addVertex('8');
@@ -88,7 +88,7 @@ describe('Graph', () => {
   it('addEdge() should add an edge to the graph', () => {
     const graph = new Graph();
 
-    // Add 5 verteces
+    // Add 5 vertices
     graph.addVertex('2');
     graph.addVertex('4');
     graph.addVertex('8');
@@ -125,7 +125,7 @@ describe('Graph', () => {
     assert.equal(graph.vertexCount, 0);
     assert.equal(graph.edgeCount, 0);
 
-    // Add 5 verteces
+    // Add 5 vertices
     graph.addVertex('2');
     graph.addVertex('4');
     graph.addVertex('8');
@@ -168,7 +168,7 @@ describe('Graph', () => {
     // Assert before
     assert.equal(graph.edgeCount, 0);
 
-    // Add 5 verteces
+    // Add 5 vertices
     graph.addVertex('2');
     graph.addVertex('4');
     graph.addVertex('8');
@@ -200,7 +200,7 @@ describe('Graph', () => {
   it('adj() should return all adjecent vertices of a vertex (connected by edges)', () => {
     const graph = new Graph();
 
-    // Add 5 verteces
+    // Add 5 vertices
     graph.addVertex('2');
     graph.addVertex('4');
     graph.addVertex('8');
@@ -234,7 +234,7 @@ describe('Graph', () => {
   it('vertices() should return a list of all vertices in the graph', () => {
     const graph = new Graph();
 
-    // Add 5 verteces
+    // Add 5 vertices
     graph.addVertex('2');
     graph.addVertex('4');
     graph.addVertex('8');

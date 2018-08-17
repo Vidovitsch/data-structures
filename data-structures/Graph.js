@@ -46,8 +46,8 @@ G.removeVertex = function removeVertex(v) {
  *
  * @param {Any} v1 first vertex
  * @param {Any} v2 second vertex
- * @throws Illegal Argument error, unless the verteces are different
- * @throws Illegal Argument error, unless the verteces have no edge between eachother yet
+ * @throws Illegal Argument error, unless the vertices are different
+ * @throws Illegal Argument error, unless the vertices have no edge between eachother yet
  * @throws Not Found error, unless the vertex does exist in the graph
  */
 G.addEdge = function addEdge(v1, v2) {
