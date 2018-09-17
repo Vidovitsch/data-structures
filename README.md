@@ -1,1 +1,1 @@
-# data-structures
+# Common data structures in JavaScript
